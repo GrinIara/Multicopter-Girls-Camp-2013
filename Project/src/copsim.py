@@ -5,13 +5,14 @@ from numpy import array
 from numpy.linalg import norm
 from threading import Thread
 from sets import ImmutableSet
+from sympy import *
 
 SCREEN_SIZE = (1280, 720)
 RESOLUTION = 0.5 # 1 pixel is 2 meters
 RANGE_X = SCREEN_SIZE[0] * RESOLUTION / 4.0
 RANGE_Y = SCREEN_SIZE[1] * RESOLUTION / 4.0
 SCREEN_CENTER = (SCREEN_SIZE[0] / 2.0, SCREEN_SIZE[1] / 2.0)
-NUM_NODES = 10
+NUM_NODES = 3
 COM_RANGE = 100
 COM_FREQ = 2
 COM_JITTER = COM_FREQ/2
@@ -155,6 +156,11 @@ class Node:
                 if vlen(vsub(n.pos, self.pos)) <= self.rng:
                     n.update(ts, self)
             self.ts_com = ts
+
+class EnclosingCircle:
+    def __init__(self, center = (0.0, 0.0), radius = 0.0):
+        self.center = center
+        self.radius = radius
 
 
 def reset():
